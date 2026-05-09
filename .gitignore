@@ -1,0 +1,1097 @@
+# ==================================================
+# SECURITY-FOCUSED .gitignore — テンプレート
+#
+# 必要なファイルは !パターン でホワイトリストに追加してください。
+# シークレットスキャンツール（gitleaks / truffleHog 等）との併用を強く推奨します。
+# ==================================================
+
+# ==================================================
+# 環境変数・dotenv
+# ==================================================
+.env
+.env.*          # .env.local / .env.ci / .env.test 等を包括
+*.local         # application.local 等も包括（.env.local も含む）
+.envrc
+
+# ホワイトリスト候補（必要なプロジェクトでコメント解除）
+# !.env.example
+# !.env.sample
+# !*.sql
+# !*.csv
+# !*.tsv
+
+# ==================================================
+# 証明書・秘密鍵
+# ==================================================
+*.pem           # *-key.pem / *-cert.pem / localhost.pem 等を包括
+*.key
+*.p12
+*.pfx
+*.cer
+*.cert          # cloudflared.cert 等を包括
+*.crt
+*.csr
+*.certSigningRequest
+*.der
+*.rsa
+*.ppk
+*.p8
+*.pkcs12
+*.priv
+*.private
+*.secret
+*.ca-bundle
+*.p7b
+*.p7c
+*.spc
+*.agekey
+age-key.txt
+keys.txt
+git-crypt-key
+*.bcfks         # Bouncy Castle キーストア
+
+# SSH キー（id_rsa 等は *_rsa に包括される）
+*_rsa
+*_dsa
+*_ecdsa
+*_ed25519
+*.pub           # ※リポジトリで公開鍵を管理する明確な意図がない限り除外推奨
+
+# GPG
+*.gpg
+*.asc
+secring.gpg
+
+# キーストア
+*.keystore
+*.jks
+*.kdb
+*.jceks
+*.bks
+truststore.jks
+
+# iOS プロビジョニング・ビルド署名
+*.mobileprovision
+*.developerprofile
+*.mobileconfig  # Apple 構成プロファイル
+key.properties
+keystore.properties
+signing.properties
+manifest.key
+
+# VPN・ネットワーク設定
+*.ovpn
+*.tblk
+*.visc          # Viscosity VPN プロファイル
+*.conf          # WireGuard 等（nginx.conf 等と衝突する場合は wg*.conf など明示的に指定を推奨）
+*.pcf           # Cisco VPN
+*.vnc           # VNC 接続プロファイル（パスワードハッシュ含む）
+*.rdp           # RDP ファイル（ログイン資格情報が保存されていることがある）
+ngrok.yml
+
+# ==================================================
+# パスワードマネージャー・Vault
+# ==================================================
+*.vault
+vault_pass*
+*.kdbx
+1Password/
+.vault-token
+bw_session      # Bitwarden CLI セッションファイル
+
+# ==================================================
+# クラウド認証情報
+# ==================================================
+.aws/
+.aws-sam/       # AWS SAM CLI ローカルビルドディレクトリ
+.azure/
+.gcloud/
+.config/gcloud/
+application_default_credentials.json
+*gcp-credential*.json
+*service-account*.json
+id.json         # GCP / Firebase サービスアカウントキー
+.oci/
+.aliyun/
+.bluemix/
+.akamai/
+.sfdx/          # Salesforce CLI（認証トークン）
+.stripe/
+.snowsql/
+.databrickscfg
+.doctlcfg
+.linode-cli
+
+# ==================================================
+# Kubernetes
+# ==================================================
+.kube/
+kubeconfig
+*.kubeconfig
+kubeconfig.yaml
+kubeconfig.yml
+.minikube/
+.helm/
+.k9s/
+
+# ==================================================
+# Firebase・モバイル認証情報
+# ==================================================
+google-services.json
+GoogleService-Info.plist
+play-store-credentials.json
+expo-credentials.json
+firebase-debug.log
+firebase-export-*/
+
+# ==================================================
+# Git 認証情報・キーチェーン
+# ==================================================
+.git-credentials
+.gitconfig.local
+.keychain
+*.keychain-db
+
+# ==================================================
+# Rails credentials
+# ==================================================
+config/master.key
+config/credentials/*.key
+
+# ==================================================
+# APIキー・CLIトークン系
+# ==================================================
+.netrc
+_netrc
+.npmrc
+.pypirc
+.pgpass
+.my.cnf
+.ssh/
+.gnupg/
+gh-hosts.yml
+.boto           # 古い AWS / GCS 認証ファイル
+.gem/credentials
+.cargo/credentials
+.cargo/credentials.toml
+.rbenv-vars
+settings-security.xml
+kaggle.json
+auth.toml       # Poetry 等の認証ファイル
+.pip/pip.conf   # カスタム PyPI リポジトリの認証情報
+acme.json       # Traefik 等の Let's Encrypt 証明書ストア（秘密鍵が平文保存）
+
+# JWT・トークン
+*.jwt
+*.jwk
+*.jwks
+*.jws
+
+# ==================================================
+# 暗号通貨・Web3
+# ==================================================
+*.wallet
+*.hdwallet
+wallet.dat
+.secret
+mnemonic.txt
+bip39.txt
+*.pvk
+*.epk
+*.webrsa
+
+# ==================================================
+# フレームワーク固有のシークレット
+# ==================================================
+local_settings.py
+wp-config.php
+web.config
+config/database.yml
+config/secrets.yml
+config/secrets.yml.key
+appsettings.secrets.json
+appsettings.Development.json
+appsettings.Local.json
+application-local.properties
+application-local.yml
+application-dev.properties
+application-dev.yml
+*.secret.exs
+secrets.*
+credentials.json
+client_secret.json
+auth.json
+auth_*.json
+token.json
+oauth.json
+config.secret.*
+LocalSettings.php       # MediaWiki
+configuration.php       # Joomla
+app/etc/env.php         # Magento
+nuget.config            # .NET プライベートフィードの認証情報が含まれる場合がある
+*.publishsettings       # Azure 発行プロファイル（認証情報が平文）
+wrangler.toml           # Cloudflare Workers（[env] にシークレットを書きがちなため）
+
+# Identity Provider デプロイ CLI 設定
+auth0-deploy-cli.json
+tenant.yaml
+
+# 汎用ローカル設定オーバーライド
+*.config.local
+*.local.config
+*.local.yaml
+*.local.yml
+*.override.config
+
+# ==================================================
+# APIクライアントツール（テスト用トークン・環境変数の漏洩防止）
+# ==================================================
+*postman_environment.json
+*postman_collection.json
+*postman_globals.json
+.insomnia/
+http-client.private.env.json
+http-client.env.json
+*.http.env.json
+rest-client.env.json
+bruno.json
+thunder-tests/
+thunder-environment.json
+*.chls          # Charles プロキシセッション（Bearer トークン・Cookie が平文）
+*.chlsj
+*.saz           # Fiddler セッション
+
+# FTP・SFTP 接続設定
+sftp-config.json
+ftp-config.json
+ftp-sync.json
+*.ftpass
+sitemanager.xml         # FileZilla（平文でパスワードが保存される）
+recentservers.xml
+filezilla.xml
+
+# ==================================================
+# AIエディタ・IDEツール設定（設計情報・システムプロンプトの漏洩防止）
+# ==================================================
+CLAUDE.md
+AGENTS.md
+.claude/
+.cursor/
+.cursorrules
+.aider*
+.continue/
+.github/copilot-instructions.md
+.roo/
+.cline/
+.windsurf/
+.copilot/
+.codeium/
+.tabnine/
+github-copilot-*.xml
+.anthropic/
+.wakatime.cfg
+.aichat/
+.chat/
+
+# ==================================================
+# ローカルLLM・AIエージェント
+# ==================================================
+.lmstudio/
+.ollama/
+.devin/
+.dspy/
+.gptengineer/
+.smoldeveloper/
+.huggingface/
+.openai/
+.langchain.db
+wandb/
+mlruns/
+profile_default/security/
+.dvc/config.local
+.doppler/
+doppler.yaml
+.infisical.json
+.promptfoo/
+promptfoo.yaml
+.prompts/
+*.prompt
+*.systemprompt
+*.gradio/
+.streamlit/secrets.toml
+.jupyter/jupyter_notebook_config.json
+
+# ==================================================
+# シェル・REPL 履歴（パスワードや認証情報が残ることがある）
+# ==================================================
+.bash_history
+.zsh_history
+.python_history
+.mysql_history
+.psql_history
+.node_repl_history
+.irb_history
+.dbshell
+.sqlite_history
+.mongorc.js
+.rediscli_history
+.pry_history
+.gdb_history
+.iex_history
+.sbt_history
+.lua_history
+.erlang.cookie          # Erlang クラスタ間認証シークレット
+.irbrc
+.pryrc
+nohup.out
+.lesshst
+
+# 通信 CLI キャッシュ・設定（認証情報が直書きされがち）
+.curlrc
+_curlrc             # Windows 版 curl 設定
+wget-log*
+.wget-hsts
+.wgetrc
+.muttrc
+.bashrc
+.zshrc
+
+# ==================================================
+# 認証・アクセス制御
+# ==================================================
+.htpasswd
+.htdigest
+known_hosts
+authorized_keys
+
+# ==================================================
+# Fastlane（iOS/Android 自動化）
+# ==================================================
+fastlane/.env*
+fastlane/report.xml
+fastlane/Session
+
+# ==================================================
+# ソースマップ（難読化を無意味にする）
+# ==================================================
+*.map               # *.js.map / *.css.map を包括
+
+# ==================================================
+# OS メタデータ
+# ==================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.fseventsd/
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.com.apple.timemachine.supported
+Icon?
+.apdisk
+*.icloud
+.iCloud
+
+# Xcode / iOS
+*.xcuserstate
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.moved-aside
+Pods/
+*.ips               # macOS クラッシュレポート
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptionKey
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.lnk
+*.stackdump
+
+# Linux
+*~
+.nfs*
+.fuse_hidden*
+.directory
+.Trash-*
+
+# ==================================================
+# エディタ・IDE
+# ==================================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (IntelliJ, WebStorm 等)
+.idea/
+.idea/dataSources/
+.idea/dataSources.local.xml
+*.iml
+*.iws
+*.ipr
+
+# Vim / Neovim
+*.swp
+*.swo
+*.swn
+Session.vim
+.netrwhist
+.viminfo
+
+# Emacs
+\#*\#
+.\#*
+*.elc
+auto-save-list
+
+# TextMate
+*.tmproj
+*.tmproject
+.tmtags
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# Zed
+.zed/
+
+# JetBrains Fleet
+.fleet/
+
+# Obsidian / Logseq
+.obsidian/
+.logseq/
+
+# ==================================================
+# Node.js / JavaScript / TypeScript
+# ==================================================
+node_modules/
+.bun/
+.bunx/
+.pnpm-store/
+.yarn/
+.yarnrc
+.yarnrc.yml
+.pnp.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.npmrc.local
+.pnpmrc
+.eslintcache
+.stylelintcache
+.parcel-cache/
+.next/
+.nuxt/
+.svelte-kit/
+.cache/
+.turbo/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.nx/
+nx-cloud.env
+
+# ==================================================
+# Python
+# ==================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ==================================================
+# Swift（Xcode 関連は OS セクション参照）
+# ==================================================
+.build/
+.swiftpm/
+Package.resolved
+*.resolved
+
+# ==================================================
+# Android / Gradle
+# ==================================================
+local.properties
+gradle-local.properties
+.gradle/
+
+# ==================================================
+# Ruby / CocoaPods
+# ==================================================
+.bundle/
+vendor/bundle/
+Gemfile.lock
+
+# ==================================================
+# Go
+# ==================================================
+go.env
+
+# ==================================================
+# Elixir / Mix
+# ==================================================
+mix.user
+
+# ==================================================
+# .NET / C#
+# ==================================================
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.pubxml.user
+
+# ==================================================
+# PHP
+# ==================================================
+vendor/
+.phpunit.result.cache
+phpunit.xml             # ローカル DB のパスワードを直書きして使うケースが多発
+phpinfo.php             # PHP 環境情報を全出力（絶対にデプロイ・コミット禁止）
+info.php
+test.php
+
+# ==================================================
+# モバイル開発（Expo / Flutter / Unity）
+# ==================================================
+.expo/
+ios/Flutter/Generated.xcconfig
+android/key.properties
+ExportedObj/            # Unity エクスポート
+*.userprefs             # Unity ユーザー設定
+
+# ==================================================
+# インフラ・クラウド
+# ==================================================
+
+# Terraform / Terragrunt
+.terraform/
+*.tfstate
+*.tfstate.*             # *.tfstate.backup を包括
+*.tfvars
+*.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+.terraformrc
+terraform.rc
+.terragrunt-cache/
+terragrunt.hcl.local
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.scalr/
+
+# Pulumi
+.pulumi/
+Pulumi.*.yaml
+# ※ホワイトリスト候補: !Pulumi.yaml（プロジェクト設定なので通常コミットする）
+
+# Docker
+.docker/
+*.docker/config.json
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.secret.yml
+docker-compose.env
+*.env.docker
+
+# Kubernetes / Helm
+.kind/
+values.local.yaml
+values.secret.yaml
+values.secrets.yaml
+*-secret-patch.yaml
+*secret.yaml
+*secret.yml
+*secrets.yaml
+*secrets.yml
+
+# Serverless / PaaS
+.serverless/
+.netlify/
+.vercel/
+.dev.vars
+amplify/.config/
+amplify/team-provider-info.json
+.amplify-hosting/
+.sst/
+.firebase/
+.wrangler/
+fly.toml                # Fly.io（[env] にシークレットを書きがちなため）
+supabase/.env
+supabase/.temp/
+supabase/.branch/
+cdk.out/
+cdk.context.json
+.astro/
+.deno/
+.cf/
+.fly/
+.cloudflared/
+
+# CI/CD
+.act/
+.actrc
+act_runner/
+*.secrets
+.gitlab-runner/
+secrets/
+*.hpi
+*.jpi
+work/
+.circleci/cli.yml
+
+# DevOps ツール
+.vagrant/
+packer_cache/
+.dagger/
+.earthly/
+tilt_modules/
+Tiltfile.local
+skaffold.yaml.local
+.direnv/
+.devenv/
+devenv.local.nix
+mise.local.toml
+rtx.local.toml
+join-command.sh         # Kubernetes クラスタ構築時のトークン生成スクリプト残骸
+
+# 構成管理ツール
+.ansible/
+.chef/
+*.retry                 # Ansible リトライファイル
+
+# 監視・Observability
+.sentryclirc
+sentry.properties
+sonar-project.properties
+.sonarqube/
+.localstack/            # ローカルクラウドモック（疑似的な認証情報やDBデータを含む）
+
+# ==================================================
+# データベース・データファイル
+# ==================================================
+
+# DB ダンプ・データファイル
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sql
+*.dump
+*.dmp
+*.sql.gz
+dump.rdb
+*.csv
+*.tsv
+*.parquet
+*.avro
+*.orc
+*.bson
+*.json.gz
+
+# DB クライアント接続設定（接続先 URL・パスワードが平文保存されがち）
+.dbeaver/
+.dbeaver-workspace/
+.sqldeveloper/
+.DbVis/
+.tableplus/
+.pgadmin/
+*.mwb                   # MySQL Workbench モデルファイル
+.navicat/
+Robo3T.json
+studio3t/
+
+# MySQL / MariaDB 物理ファイル
+ibdata*
+ib_logfile*
+*.ibd
+*.frm
+
+# SQL Server
+*.mdf
+*.ldf
+
+# MongoDB
+*.mongodb
+mongodump/
+
+# PostgreSQL
+pg_dump/
+
+# Neo4j
+data/databases/
+
+# Redis
+appendonly.aof
+
+# Elasticsearch
+nodes/
+
+# DynamoDB ローカル
+dynamodb-local/
+
+# Apache Airflow
+airflow.db
+airflow.cfg
+unittests.cfg
+
+# dbt（profiles.yml に DB 接続情報が直書きされる事故が多発）
+profiles.yml
+
+# ORM 設定
+ormconfig.json
+ormconfig.local.json
+prisma/dev.db
+prisma/dev.db-journal
+prisma/.env
+drizzle.config.local.ts
+
+# DB マイグレーションツール
+liquibase.properties
+flyway.conf
+
+# Vector DB（ローカルインデックス）
+*.faiss
+*.index
+qdrant_storage/
+milvus_data/
+chroma_db/
+.chroma/
+
+# ==================================================
+# ビルド成果物
+# ==================================================
+dist/
+build/
+out/
+*.out
+target/
+bin/
+obj/
+_build/
+deps/
+cache/
+src-tauri/target/
+bazel-*/
+bazel-bin
+bazel-out
+CMakeCache.txt
+
+# ==================================================
+# チェックサム
+# ==================================================
+checksums.txt
+*.sha256
+*.sha512
+*.md5
+
+# ==================================================
+# ログ・一時ファイル
+# ==================================================
+*.log
+*.log.*
+logs/
+tmp/
+temp/
+.temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.bak.*
+*.bkp
+*.orig
+*.pid
+*.seed
+*.old
+*.save
+
+# ==================================================
+# メモリダンプ・クラッシュレポート（メモリ上の平文パスワード漏洩防止）
+# ==================================================
+core
+core.*
+*.crash
+hs_err_pid*.log
+*.hprof                 # java_pid*.hprof を包括
+*.heapsnapshot
+*.cpuprofile
+vgcore.*                # Valgrind（C/C++ メモリデバッガ）
+cachegrind.out.*        # Valgrind / Callgrind
+strace.out
+*.mdmp                  # Windows Minidump
+*.hdmp                  # Windows Heap Dump
+erl_crash.dump          # Erlang/Elixir
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json  # Node.js 診断レポート
+
+# ==================================================
+# パッケージ・アーカイブ
+# ==================================================
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.dmg
+*.pkg
+*.deb
+*.rpm
+
+# ==================================================
+# ネイティブバイナリ・ライブラリ
+# ==================================================
+*.dll
+*.so
+*.dylib
+*.obj
+*.o
+*.exe
+*.apks
+*.aab
+*.bin                   # ローカル LLM モデル（意図的なバイナリはホワイトリストへ）
+*.gguf                  # ローカル LLM モデル（非常に重く著作権リスクあり）
+
+# ==================================================
+# パケットキャプチャ・プロキシトラフィック
+# ==================================================
+*.pcap
+*.cap
+*.pcapng
+*.har                   # ブラウザの HAR ファイル（Bearer トークン・Cookie が丸ごと入る）
+
+# ==================================================
+# セキュリティスキャン結果（脆弱性リストが丸ごと漏洩するため除外）
+# ==================================================
+*.sarif
+snyk-test.json
+gl-sast-report.json
+gl-dast-report.json
+.trivyignore
+trivy-results.json
+gitleaks-report.json
+trufflehog-report.json
+
+# ペネトレーションテストツール
+.burp/
+*.zap/
+*.nmap
+*.nikto
+
+# ==================================================
+# E2Eテスト・ブラウザ自動化（セッション・Cookie 漏洩防止）
+# ==================================================
+playwright/.auth/
+.auth/
+*.auth.json
+cypress.env.json
+cypress/videos/
+cypress/screenshots/
+cypress/reports/
+playwright-report/
+newman/                 # Postman CLI 実行レポート
+user-data-dir/
+profile/
+*.leveldb
+*.ldb
+chromedriver.log
+geckodriver.log
+ghostdriver.log
+
+# ==================================================
+# BI・データ可視化ツール（PII・生データ漏洩防止）
+# ==================================================
+*.twb
+*.twbx
+*.pbix
+*.pbit
+*.yxmd
+*.yxzp
+*.yxdb
+*.qvf
+*.qvw
+
+# ==================================================
+# ビジネスドキュメント（APIキーや顧客データが誤コミットされがち）
+# ==================================================
+*.xls
+*.xlsx
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.pdf
+*.rtf
+*.eml
+*.msg
+*.pst
+*.ost
+~$*                     # Office アプリ一時ファイル
+
+# ==================================================
+# 音声・動画（会議録や社内機密が入りがち）
+# ==================================================
+*.mp4
+*.m4a
+*.wav
+*.mov
+
+# ==================================================
+# 仮想マシン・ディスクイメージ
+# ==================================================
+*.vmdk
+*.vdi
+*.qcow2
+*.hdd
+
+# ==================================================
+# ゲームエンジン
+# ==================================================
+export_presets.cfg      # Godot（Android キーストアのパスワードが平文保存される）
+broadcast/              # Foundry（Ethereum 開発ツール）
+Saved/                  # Unreal Engine
+*.udn
+
+# ==================================================
+# IoT / Edge Device
+# ==================================================
+*secrets.h
+*wifi_config.h
+wpa_supplicant.conf
+NetworkManager/system-connections/
+
+# ==================================================
+# 設計ツールのバックアップ（インフラ情報の漏洩防止）
+# ==================================================
+.*.drawio.bkp
+.*.drawio.dtmp
+~*.drawio
+
+# ==================================================
+# ヒューマンエラー防止
+# ==================================================
+
+# 一時メモ・退避ファイル
+*memo*.txt
+*memo*.md
+*note*.txt
+*note*.md
+*secret*.md
+*draft*.txt
+*draft*.md
+*.tmp.md
+*untitled*
+*Untitled*
+*.scratch
+scratch.*
+scratchpad.*
+*TODO*.txt
+*TODO*.md
+*.xmind
+*.mindnode
+
+# バックアップ・コピー残骸
+*.bak[0-9]
+*.bak[0-9][0-9]
+*コピー.*
+*のコピー.*
+Copy\ of\ *
+*_backup_*
+
+# 認証情報が書かれがちなテキストファイル
+*mfa*.txt
+*recovery_codes*.txt
+*backup_codes*.txt
+*password*.txt
+*passwd*.txt
+*credentials*.txt
+
+# Bot・Webhook 設定（トークン直書き事故が多い）
+*discord*.json
+*slack*.json
+*telegram*.json
+*webhook*.json
+*bot_config*.json
+
+# スクリーンショット・画面録画（機密情報の映り込み防止）
+スクリーンショット*.png
+Screen\ Shot*.png
+Screenshot*.png
+録画*.mp4
+Screen\ Recording*.mov
+
+# HTTP クライアントの生リクエスト（トークン・パスワードが直書きされがち）
+*.http
+*.rest
+
+# パッチ・差分・マージ残骸（ハードコードされた機密情報の漏洩防止）
+*.patch
+*.diff
+*.rej
+*.conflict
+*.mergebackup
+
+# ==================================================
+# その他
+# ==================================================
+.history/
+.sass-cache/
+.grunt/
+.svn/
+.hg/
+.keys/
+certs/
+certificates/
+keystore/
+storage/
+workspace/
+auto_gpt_workspace/
+models/                 # ローカル LLM モデルファイル
+.git.bak/
+*.git.zip
+.devcontainer/local-features/
+dist_electron/
+release/
+*.itmsp                 # App Store Connect パッケージ

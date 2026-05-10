@@ -39,7 +39,7 @@ curl https://raw.githubusercontent.com/igarinpiano/gitignore-template/main/.giti
 
 ### ホワイトリスト（必要なファイルを除外対象から外す）
 
-プロジェクトによっては除外を解除したいファイルもあるかと思います。`.gitignore` に `!` プレフィックスで追記してください。
+プロジェクトによっては除外を解除したいファイルもあるかと思います。その場合は、`.gitignore` に `!` プレフィックスで追記してください。
 
 ```gitignore
 # 例：サンプル用の .env ファイルはコミットしたい

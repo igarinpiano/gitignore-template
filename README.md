@@ -84,7 +84,7 @@ curl https://raw.githubusercontent.com/igarinpiano/gitignore-template/main/.giti
 
 ## Contributing
 
-本テンプレートはまだ網羅できていないケースもあるかと思います。皆様のPull Requestsをお待ちしております。
+本テンプレートにはまだ網羅できていないケースもあるかと思います。皆様のPull Requestsをお待ちしております。
 
 新しい漏洩パターンの発見、ツール・フレームワーク固有の設定ファイルの追加、既存パターンの改善など、どんな改善でもお気軽にどうぞ。
 

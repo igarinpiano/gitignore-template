@@ -2,7 +2,7 @@
 
 **ソースコード漏洩・認証情報の誤コミットを防ぐための `.gitignore` テンプレートです。**
 
-近年、`.env` 、`.map`、`CLAUDE.md`といったファイルや、秘密鍵・APIキーの誤コミットによるソースコード漏洩などの事故が多発しています。このテンプレートはそうしたヒューマンエラーを「最後の砦」として防ぐことを目的に作られました。
+近年、`.env`、`.map`、`CLAUDE.md`といったファイルや、秘密鍵・APIキーの誤コミットによる情報漏洩が後を絶ちません。このテンプレートはそうしたヒューマンエラーを防ぐための「最後の砦」として作られました。
 
 ---
 
@@ -84,7 +84,7 @@ curl https://raw.githubusercontent.com/igarinpiano/gitignore-template/main/.giti
 
 ## Contributing
 
-このファイルは個人開発者の私が作ったものですので、まだまだ抜けが多いと思います。皆様のPull Requestsをお待ちしております。
+本テンプレートはまだ網羅できていないケースもあるかと思います。皆様のPull Requestsをお待ちしております。
 
 新しい漏洩パターンの発見、ツール・フレームワーク固有の設定ファイルの追加、既存パターンの改善など、どんな改善でもお気軽にどうぞ。
 
@@ -99,3 +99,17 @@ curl https://raw.githubusercontent.com/igarinpiano/gitignore-template/main/.giti
 - [gitignore.io](https://www.toptal.com/developers/gitignore) — 言語・OS 別テンプレート生成
 - [GitHub の公式 gitignore コレクション](https://github.com/github/gitignore)
 - [OWASP — Sensitive Data Exposure](https://owasp.org/www-project-top-ten/)
+
+---
+
+## 終わりに
+
+昨今、AIコーディングツールの利用が加速しており、人的ミスによる情報漏洩のニュースもよく耳にします。\
+情報には残存性・複製性・伝播性があり、一度公開された情報は、コピー・保存・拡散され続けます。デジタルタトゥーという言葉の通り、一度公開して拡散されてしまえば何をしても後の祭です。完全に取り戻すのは極めて困難、あるいは不可能と言えるでしょう。\
+「あの時確認しておけば…」という後悔をしないためにも、セーフティネットとして、ぜひこの`.gitignore`をお役立てください。\
+今後、新たなコーディングツールの登場や発展により、`.gitignore`の内容を書き換える必要が出てくることもあるかと思います。その時はぜひお知らせください。\
+欠陥の発見や追加すべきファイルの提案など、皆様の Pull Requests をお待ちしております。\
+\
+この`.gitignore`が、誰か一人でもミスを防ぐことができたならば、製作者としてこれ以上の喜びはありません。\
+\
+Igarin

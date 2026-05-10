@@ -110,6 +110,6 @@ curl https://raw.githubusercontent.com/igarinpiano/gitignore-template/main/.giti
 今後、新たなコーディングツールの登場や発展により、`.gitignore`の内容を書き換える必要が出てくることもあるかと思います。その時はぜひお知らせください。\
 欠陥の発見や追加すべきファイルの提案など、皆様の Pull Requests をお待ちしております。\
 \
-この`.gitignore`が、誰か一人のミスでも未然に防ぐことができたならば、製作者としてこれ以上の喜びはありません。\
+この`.gitignore`によって、誰か一人のミスでも未然に防ぐことができたならば、製作者としてこれ以上の喜びはありません。\
 \
 Igarin
